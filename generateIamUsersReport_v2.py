@@ -30,7 +30,7 @@ def lambda_handler(context,event):
     for role  in roleList:
          print role['Assumed_Role']
          generateReport(role['Assumed_Role'], role['Account_Name'],role['Account_id'],auditTable)
-    #emailIamAuditReport(sns_report)
+    emailIamAuditReport(sns_report)
     #sns_report.clear() # Python 3
     del sns_report[:]
             
@@ -72,7 +72,7 @@ def generateReport(roleName,awsAccountName, awsAccountId, auditTable):
                     'AwsAccountNumber':awsAccountId,
                     'AwsAccountName':awsAccountName,
                     'UserName':row['user'],
-                    'UserType':'Console User',
+                    'UserType':'Access Key',
                     'UserCreationDate':creationDate ,
                     'IsActive': row['access_key_1_active'] ,
                     'LastUsedService':row['access_key_1_last_used_service'] ,
